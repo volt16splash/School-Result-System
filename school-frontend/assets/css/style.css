@@ -1,0 +1,668 @@
+/* ========================================
+   School Management System — Theme Styles
+   Navy + Gold + Cream academic palette
+   ======================================== */
+
+:root {
+    --navy-dark: #0a1128;
+    --navy: #1e2a54;
+    --navy-light: #2d3a6b;
+    --navy-lighter: #414f82;
+    --gold: #d4a843;
+    --gold-light: #e5c96e;
+    --gold-dark: #b8922e;
+    --cream: #faf7f0;
+    --cream-dark: #f0ebe0;
+    --paper: #fdfcf9;
+    --text-dark: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --border-color: #d6c290;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cream);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: var(--navy);
+}
+
+a {
+    color: var(--navy-lighter);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--gold);
+}
+
+/* ---- Navbar ---- */
+.navbar-sms {
+    background-color: var(--navy-dark) !important;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-sms .navbar-brand {
+    color: var(--gold) !important;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 1.35rem;
+    letter-spacing: 0.5px;
+}
+
+.navbar-sms .navbar-brand:hover {
+    color: var(--gold-light) !important;
+}
+
+.navbar-sms .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem !important;
+    transition: color 0.2s ease;
+}
+
+.navbar-sms .nav-link:hover,
+.navbar-sms .nav-link.active {
+    color: var(--gold) !important;
+}
+
+.navbar-sms .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navbar-sms .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ---- Gold accent line ---- */
+.gold-accent {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+    margin: 0;
+    border: none;
+}
+
+/* ---- Page content ---- */
+.page-content {
+    flex: 1;
+    padding-bottom: 2rem;
+}
+
+/* ---- Section headings ---- */
+.section-heading {
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+/* ---- Cards ---- */
+.card-sms {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-sms:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card-sms .card-header {
+    background-color: var(--navy);
+    color: var(--gold);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* ---- Forms ---- */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(212, 168, 67, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+}
+
+.form-text {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* ---- Buttons ---- */
+.btn-navy {
+    background-color: var(--navy);
+    color: #fff;
+    border: none;
+}
+
+.btn-navy:hover {
+    background-color: var(--navy-light);
+    color: #fff;
+}
+
+.btn-gold {
+    background-color: var(--gold);
+    color: var(--navy-dark);
+    border: none;
+    font-weight: 600;
+}
+
+.btn-gold:hover {
+    background-color: var(--gold-dark);
+    color: var(--navy-dark);
+}
+
+.btn-outline-navy {
+    border-color: var(--navy);
+    color: var(--navy);
+}
+
+.btn-outline-navy:hover {
+    background-color: var(--navy);
+    color: #fff;
+}
+
+/* ---- Results / Report Card Tables ---- */
+.results-table {
+    border: 2px solid var(--navy);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.results-table thead th {
+    background-color: var(--navy);
+    color: #fff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+    padding: 0.6rem 0.75rem;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.results-table thead th:first-child {
+    text-align: left;
+}
+
+.results-table tbody td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid #e0d8c8;
+    font-size: 0.92rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.results-table tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+}
+
+.results-table tbody tr:last-child td {
+    border-bottom: 2px solid var(--navy);
+}
+
+.results-table tbody tr:hover {
+    background-color: rgba(212, 168, 67, 0.06);
+}
+
+/* Grade badge in table */
+.grade-badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    min-width: 28px;
+    text-align: center;
+}
+
+.grade-a { background-color: #d4edda; color: #155724; }
+.grade-b { background-color: #cce5ff; color: #004085; }
+.grade-c { background-color: #fff3cd; color: #856404; }
+.grade-d { background-color: #ffeeba; color: #856404; }
+.grade-e { background-color: #f8d7da; color: #721c24; }
+.grade-f { background-color: #f5c6cb; color: #721c24; }
+
+/* ---- Term summary row ---- */
+.term-summary {
+    background-color: var(--cream-dark);
+    font-weight: 700;
+}
+
+.term-summary td {
+    border-top: 2px solid var(--navy) !important;
+    border-bottom: 2px solid var(--navy) !important;
+    padding: 0.65rem 0.75rem !important;
+    color: var(--navy);
+}
+
+/* ---- Year average banner ---- */
+.year-average-banner {
+    background-color: var(--navy);
+    color: #fff;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.year-average-banner h5 {
+    color: var(--gold);
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.year-average-banner .avg-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--gold);
+}
+
+.year-average-banner .avg-grade {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---- Admin sidebar nav ---- */
+.admin-sidebar {
+    background-color: var(--navy);
+    min-height: 100%;
+    padding: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.admin-sidebar .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.admin-sidebar .sidebar-nav li {
+    margin: 0;
+}
+
+.admin-sidebar .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+}
+
+.admin-sidebar .sidebar-nav a:hover,
+.admin-sidebar .sidebar-nav a.active {
+    background-color: rgba(212, 168, 67, 0.15);
+    color: var(--gold);
+    border-left-color: var(--gold);
+}
+
+.admin-sidebar .sidebar-nav a i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* ---- Announcement cards ---- */
+.announcement-card {
+    border-left: 4px solid var(--gold);
+    background: #fff;
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.announcement-card .announcement-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.announcement-card h5 {
+    margin-bottom: 0.5rem;
+    color: var(--navy);
+}
+
+.announcement-card p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* ---- Login page ---- */
+.login-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 420px;
+    width: 100%;
+}
+
+.login-card .login-header {
+    background-color: var(--navy);
+    color: var(--gold);
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.login-card .login-header h3 {
+    color: var(--gold);
+    margin: 0;
+}
+
+.login-card .login-body {
+    padding: 2rem;
+}
+
+/* ---- Hero section (home) ---- */
+.hero-section {
+    position: relative;
+    background: url('https://picsum.photos/id/180/1600/600') center/cover no-repeat;
+    color: #fff;
+    padding: 5rem 2rem;
+    text-align: center;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(10,17,40,0.88) 0%, rgba(30,42,84,0.82) 50%, rgba(45,58,107,0.78) 100%);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    color: var(--gold);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section .motto {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 700px;
+    margin: 0 auto 1.5rem;
+}
+
+/* ---- Photo Gallery ---- */
+.gallery-section {
+    background-color: #fff;
+    padding: 3rem 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 4 / 3;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-item .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(10,17,40,0.85));
+    color: #fff;
+    padding: 2rem 1rem 0.8rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+}
+
+.gallery-item .gallery-caption .caption-category {
+    display: inline-block;
+    background-color: var(--gold);
+    color: var(--navy-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 0.3rem;
+}
+
+/* ---- Footer ---- */
+.footer-sms {
+    background-color: var(--navy-dark);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+.footer-sms a {
+    color: var(--gold);
+}
+
+.footer-sms .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+/* ---- Stats card (admin dashboard) ---- */
+.stat-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border-top: 3px solid var(--gold);
+}
+
+.stat-card .stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--navy);
+    display: block;
+}
+
+.stat-card .stat-label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ---- Alerts / Success messages ---- */
+.alert-sms-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+}
+
+.alert-sms-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+}
+
+/* ---- Table wrapper for responsive ---- */
+.table-responsive-custom {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ---- Utility ---- */
+.text-navy { color: var(--navy) !important; }
+.text-gold { color: var(--gold) !important; }
+.bg-navy { background-color: var(--navy) !important; }
+.bg-gold { background-color: var(--gold) !important; }
+.border-gold { border-color: var(--gold) !important; }
+
+/* ---- Focus states for accessibility ---- */
+:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 3rem 1rem;
+        min-height: 320px;
+    }
+
+    .hero-section h1 {
+        font-size: 1.75rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .year-average-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .admin-sidebar {
+        border-radius: 0 0 8px 8px;
+        margin-bottom: 1rem;
+    }
+
+    .results-table thead th,
+    .results-table tbody td {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.82rem;
+    }
+
+    .stat-card .stat-number {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .gallery-item .gallery-caption {
+        font-size: 0.75rem;
+        padding: 1.5rem 0.6rem 0.5rem;
+    }
+
+    .gallery-item .gallery-caption .caption-category {
+        font-size: 0.6rem;
+    }
+
+    .results-table thead th {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.4rem;
+    }
+
+    .results-table tbody td {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.4rem;
+    }
+}
+
+/* ---- Print styles ---- */
+@media print {
+    .navbar-sms,
+    .footer-sms,
+    .btn,
+    .admin-sidebar {
+        display: none !important;
+    }
+
+    body {
+        background: #fff;
+    }
+
+    .results-table thead th {
+        background-color: var(--navy) !important;
+        color: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

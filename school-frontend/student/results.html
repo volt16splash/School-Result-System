@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Results — Greenfield International Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="student-results">
+
+    <div id="main-navbar"></div>
+
+    <div class="page-content">
+        <div class="container py-4">
+            <h2 class="section-heading">My Results</h2>
+            <p class="text-muted mb-1">View your academic results by year and term.</p>
+            <p class="text-muted mb-4"><small>Demo student: <strong>Adebayo Johnson</strong> (GFA/2025/001)</small></p>
+
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <label for="year-select" class="form-label">Academic Year</label>
+                    <select class="form-select" id="year-select">
+                        <option value="">-- Select Year --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="results-container">
+                <div class="text-center text-muted py-5">
+                    <h5>Select an academic year to view your results.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/gradeCalculator.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        var DEMO_STUDENT_ID = 1;
+
+        function getGradeClass(grade) {
+            if (!grade) return '';
+            return 'grade-' + grade.toLowerCase();
+        }
+
+        function populateYearDropdown() {
+            var select = document.getElementById('year-select');
+            var yearsForResult = [];
+            for (var i = 0; i < RESULTS.length; i++) {
+                if (RESULTS[i].studentId === DEMO_STUDENT_ID) {
+                    var yid = RESULTS[i].academicYearId;
+                    if (yearsForResult.indexOf(yid) === -1) {
+                        yearsForResult.push(yid);
+                    }
+                }
+            }
+            for (var j = 0; j < ACADEMIC_YEARS.length; j++) {
+                if (yearsForResult.indexOf(ACADEMIC_YEARS[j].id) !== -1) {
+                    var opt = document.createElement('option');
+                    opt.value = ACADEMIC_YEARS[j].id;
+                    opt.textContent = ACADEMIC_YEARS[j].label;
+                    select.appendChild(opt);
+                }
+            }
+        }
+
+        function getStudentResultsForYear(studentId, yearId) {
+            var filtered = [];
+            for (var i = 0; i < RESULTS.length; i++) {
+                if (RESULTS[i].studentId === studentId && RESULTS[i].academicYearId === yearId) {
+                    filtered.push(RESULTS[i]);
+                }
+            }
+            return filtered;
+        }
+
+        function groupByTerm(results) {
+            var groups = {};
+            for (var i = 0; i < TERMS.length; i++) {
+                groups[TERMS[i]] = [];
+            }
+            for (var j = 0; j < results.length; j++) {
+                var term = results[j].term;
+                if (groups[term]) {
+                    groups[term].push(results[j]);
+                }
+            }
+            return groups;
+        }
+
+        function renderResults(yearId) {
+            var container = document.getElementById('results-container');
+
+            if (!yearId) {
+                container.innerHTML = '<div class="text-center text-muted py-5"><h5>Select an academic year to view your results.</h5></div>';
+                return;
+            }
+
+            var studentResults = getStudentResultsForYear(DEMO_STUDENT_ID, parseInt(yearId));
+
+            if (studentResults.length === 0) {
+                container.innerHTML = '<div class="text-center text-muted py-5"><h5>No results found for the selected year.</h5><p>Please contact the school office if you believe this is an error.</p></div>';
+                return;
+            }
+
+            var grouped = groupByTerm(studentResults);
+            var termAverages = [];
+            var html = '';
+
+            for (var t = 0; t < TERMS.length; t++) {
+                var termName = TERMS[t];
+                var termResults = grouped[termName];
+
+                if (!termResults || termResults.length === 0) continue;
+
+                var computed = GradeCalculator.computeResultsBatch(
+                    termResults.map(function (r) {
+                        return { subject: getSubjectName(r.subjectId), caScore: r.caScore, examScore: r.examScore };
+                    })
+                );
+
+                var subjectTotals = [];
+                for (var k = 0; k < computed.length; k++) {
+                    subjectTotals.push(computed[k].total);
+                }
+
+                var termAvg = GradeCalculator.computeTermAverage(subjectTotals);
+                termAverages.push(termAvg.average);
+
+                html += '<div class="mb-5">';
+                html += '<h4 class="text-navy mb-3" style="border-bottom: 2px solid var(--gold); padding-bottom: 0.3rem; display:inline-block;">' + termName + '</h4>';
+                html += '<div class="table-responsive-custom">';
+                html += '<table class="results-table">';
+                html += '<thead><tr>';
+                html += '<th>Subject</th><th>CA (40)</th><th>Exam (60)</th><th>Total (100)</th><th>Grade</th><th>Remark</th>';
+                html += '</tr></thead>';
+                html += '<tbody>';
+
+                for (var s = 0; s < computed.length; s++) {
+                    var r = computed[s];
+                    html += '<tr>';
+                    html += '<td>' + escapeHtml(r.subject) + '</td>';
+                    html += '<td>' + r.caScore + '</td>';
+                    html += '<td>' + r.examScore + '</td>';
+                    html += '<td><strong>' + r.total + '</strong></td>';
+                    html += '<td><span class="grade-badge ' + getGradeClass(r.grade) + '">' + r.grade + '</span></td>';
+                    html += '<td>' + escapeHtml(r.remark) + '</td>';
+                    html += '</tr>';
+                }
+
+                html += '</tbody>';
+                html += '</table>';
+                html += '</div>';
+
+                html += '<div class="term-summary mt-2">';
+                html += '<table class="table mb-0"><tbody><tr>';
+                html += '<td style="width:50%;"><strong>' + termName + ' Average:</strong> ' + termAvg.average.toFixed(2) + '</td>';
+                html += '<td style="width:50%;"><strong>Term Grade:</strong> <span class="grade-badge ' + getGradeClass(termAvg.grade) + '">' + termAvg.grade + '</span> — ' + escapeHtml(termAvg.remark) + '</td>';
+                html += '</tr></tbody></table>';
+                html += '</div>';
+                html += '</div>';
+            }
+
+            if (termAverages.length > 0) {
+                var yearAvg = GradeCalculator.computeYearAverage(termAverages);
+                html += '<div class="year-average-banner mt-3">';
+                html += '  <div>';
+                html += '    <h5>Year Average</h5>';
+                html += '    <span class="avg-grade">' + escapeHtml(yearAvg.remark) + '</span>';
+                html += '  </div>';
+                html += '  <div class="text-end">';
+                html += '    <span class="avg-value">' + yearAvg.average.toFixed(2) + '%</span>';
+                html += '    <span class="avg-grade ms-2">Grade: <strong>' + yearAvg.grade + '</strong></span>';
+                html += '  </div>';
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            populateYearDropdown();
+        });
+
+        document.getElementById('year-select').addEventListener('change', function () {
+            renderResults(this.value);
+        });
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(text));
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

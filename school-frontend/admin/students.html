@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Students — Greenfield International Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="admin-students">
+
+    <div id="main-navbar"></div>
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-2 col-md-3 p-0">
+                    <div class="admin-sidebar">
+                        <ul class="sidebar-nav">
+                            <li><a href="dashboard.html"><span>&#9632;</span> Dashboard</a></li>
+                            <li><a href="students.html" class="active"><span>&#9632;</span> Students</a></li>
+                            <li><a href="results.html"><span>&#9632;</span> Results</a></li>
+                            <li><a href="announcements.html"><span>&#9632;</span> Announcements</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-10 col-md-9 p-4">
+                    <h2 class="section-heading">Manage Students</h2>
+
+                    <!-- Add Student Form -->
+                    <div class="card card-sms mb-4">
+                        <div class="card-header">Add New Student</div>
+                        <div class="card-body">
+                            <div id="student-form-message"></div>
+                            <form id="add-student-form" novalidate>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="student-name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="student-name" placeholder="e.g. Adebayo Johnson" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="student-admission" class="form-label">Admission Number</label>
+                                        <input type="text" class="form-control" id="student-admission" placeholder="e.g. GFA/2026/009" required>
+                                        <div class="form-text">Must be unique across all students.</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="student-class" class="form-label">Class / Level</label>
+                                        <select class="form-select" id="student-class" required>
+                                            <option value="">— Select Class —</option>
+                                            <option value="JSS 1A">JSS 1A</option>
+                                            <option value="JSS 1B">JSS 1B</option>
+                                            <option value="JSS 2A">JSS 2A</option>
+                                            <option value="JSS 2B">JSS 2B</option>
+                                            <option value="JSS 3A">JSS 3A</option>
+                                            <option value="JSS 3B">JSS 3B</option>
+                                            <option value="SS 1A">SS 1A</option>
+                                            <option value="SS 1B">SS 1B</option>
+                                            <option value="SS 2A">SS 2A</option>
+                                            <option value="SS 2B">SS 2B</option>
+                                            <option value="SS 3A">SS 3A</option>
+                                            <option value="SS 3B">SS 3B</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="student-guardian-email" class="form-label">Guardian Email (Optional)</label>
+                                        <input type="email" class="form-control" id="student-guardian-email" placeholder="guardian@email.com">
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-gold w-100">Add Student</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Student List -->
+                    <div class="card card-sms">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Student List (<span id="student-count">0</span>)</span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive-custom">
+                                <table class="table table-hover mb-0">
+                                    <thead style="background-color: var(--cream-dark);">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Full Name</th>
+                                            <th>Admission No.</th>
+                                            <th>Class</th>
+                                            <th>Guardian Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="students-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/gradeCalculator.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script>
+        function renderStudentTable() {
+            var tbody = document.getElementById('students-table-body');
+            document.getElementById('student-count').textContent = STUDENTS.length;
+            var html = '';
+            for (var i = 0; i < STUDENTS.length; i++) {
+                var s = STUDENTS[i];
+                html += '<tr>'
+                    + '<td>' + (i + 1) + '</td>'
+                    + '<td>' + escapeHtml(s.name) + '</td>'
+                    + '<td>' + escapeHtml(s.admissionNo) + '</td>'
+                    + '<td>' + escapeHtml(s.classLevel) + '</td>'
+                    + '<td>' + escapeHtml(s.guardianEmail) + '</td>'
+                    + '</tr>';
+            }
+            tbody.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderStudentTable();
+        });
+
+        document.getElementById('add-student-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            clearFormMessage('student-form-message');
+
+            var name = document.getElementById('student-name').value;
+            var admission = document.getElementById('student-admission').value;
+            var classLevel = document.getElementById('student-class').value;
+            var guardianEmail = document.getElementById('student-guardian-email').value;
+
+            var error = validateRequired(name, 'Full name')
+                || validateRequired(admission, 'Admission number')
+                || validateRequired(classLevel, 'Class');
+
+            if (!error && guardianEmail) {
+                error = validateEmail(guardianEmail, 'Guardian email');
+            }
+
+            if (!error) {
+                // Check uniqueness of admission number
+                var existing = STUDENTS.map(function (s) { return s.admissionNo.toLowerCase(); });
+                error = validateUnique(admission, existing, 'Admission number');
+            }
+
+            if (error) {
+                showFormMessage('student-form-message', 'error', error);
+                return;
+            }
+
+            // Add to dummy array
+            NEXT_STUDENT_ID++;
+            STUDENTS.push({
+                id: NEXT_STUDENT_ID,
+                name: name.trim(),
+                admissionNo: admission.trim(),
+                classLevel: classLevel,
+                guardianEmail: guardianEmail.trim() || 'N/A'
+            });
+
+            showFormMessage('student-form-message', 'success', 'Student "' + name + '" added successfully!');
+            document.getElementById('add-student-form').reset();
+            renderStudentTable();
+        });
+
+        function escapeHtml(text) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(text));
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
